@@ -12,3 +12,12 @@ class Expense(BaseModel):
     amount: float
     category: str
     date: date
+
+
+@app.post("/expense")
+def add_expense(expense: Expense):
+    expense_data.append(expense)
+    return {
+        "message": "Expense added successfully",
+        "data": expense
+    }
