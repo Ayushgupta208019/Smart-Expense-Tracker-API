@@ -7,6 +7,7 @@ app = FastAPI()
 
 expense_data = []
 
+# Define the Expense model
 class Expense(BaseModel):
     id: int
     title: str
@@ -14,7 +15,7 @@ class Expense(BaseModel):
     category: str
     date: date
 
-
+# Define the API endpoints for adding expenses
 @app.post("/expense")
 def add_expense(expense: Expense):
     expense_data.append(expense)
@@ -23,6 +24,7 @@ def add_expense(expense: Expense):
         "data": expense
     }
 
+# Define the API endpoints for retrieving expenses
 @app.get("/expenses")
 def get_expenses():
     return {
@@ -30,13 +32,7 @@ def get_expenses():
         "data": expense_data
     }
 
-@app.get("/expenses")
-def get_expenses():
-    return {
-        "message": "Expenses retrieved successfully",
-        "data": expense_data
-    }
-
+# Define the API endpoints for calculating total expenses
 @app.get("/expense/total")
 def total_expenses():
     total = sum(expense.amount for expense in expense_data)
@@ -45,6 +41,7 @@ def total_expenses():
         "total_expenses": total
     }
 
+# Define the API endpoints for calculating total expenses by category
 @app.get("/expense/total/{expense_category}")
 def total_expenses_by_category(expense_category: str):
     total = sum(expense.amount for expense in expense_data if expense.category.lower() == expense_category.lower())
@@ -53,6 +50,7 @@ def total_expenses_by_category(expense_category: str):
         "total_expenses": total
     }
 
+# Define the API endpoints for searching expenses by title
 @app.get("/expense/search")
 def search_expense(title: str = Query(...)):
     filtered_expenses = [
@@ -66,6 +64,7 @@ def search_expense(title: str = Query(...)):
         "data": filtered_expenses
     }
 
+# Define the API endpoints for retrieving expenses by category
 @app.get("/expense/{expense_category}")
 def get_expense(expense_category: str):
     filtered_expenses = [expense for expense in expense_data if expense.category.lower() == expense_category.lower()]
@@ -79,6 +78,7 @@ def get_expense(expense_category: str):
         "data": filtered_expenses
     }
 
+# Define the API endpoints for deleting an expense by ID
 @app.delete("/expense/{expense_id}")
 def delete_expense(expense_id: int):
     for expense in expense_data:
@@ -92,7 +92,6 @@ def delete_expense(expense_id: int):
         "message": "Expense not found",
         "data": None
     }
-from fastapi import Query
 
 
 
