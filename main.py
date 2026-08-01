@@ -44,3 +44,11 @@ def total_expenses():
         "total_expenses": total
     }
 
+@app.get("/expense/total/{expense_category}")
+def total_expenses_by_category(expense_category: str):
+    total = sum(expense.amount for expense in expense_data if expense.category.lower() == expense_category.lower())
+    return {
+        "message": f"Total expenses for category '{expense_category}' calculated successfully",
+        "total_expenses": total
+    }
+
