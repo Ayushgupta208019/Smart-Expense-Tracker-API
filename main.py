@@ -65,3 +65,20 @@ def get_expense(expense_category: str):
         "data": filtered_expenses
     }
 
+@app.delete("/expense/{expense_id}")
+def delete_expense(expense_id: int):
+    for expense in expense_data:
+        if expense.id == expense_id:
+            expense_data.remove(expense)
+            return {
+                "message": "Expense deleted successfully",
+                "data": expense
+            }
+    return {
+        "message": "Expense not found",
+        "data": None
+    }
+
+
+
+
