@@ -102,3 +102,28 @@ python -m pytest
   "date": "2026-08-06"
 }
 ```
+## Run the Tests
+
+From the project root directory, run:
+
+```bash
+python -m pytest
+```
+
+If all tests pass, you should see output similar to:
+
+```text
+============================= test session starts =============================
+collected 9 items
+
+tests/test_expense.py .........                             [100%]
+
+============================== 9 passed ==============================
+```
+
+To run a specific test file only:
+
+```bash
+python -m pytest tests/test_expense.py
+```
+
