@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 from datetime import date
+from fastapi import Query
 
 app = FastAPI()
 
@@ -52,6 +53,19 @@ def total_expenses_by_category(expense_category: str):
         "total_expenses": total
     }
 
+@app.get("/expense/search")
+def search_expense(title: str = Query(...)):
+    filtered_expenses = [
+        expense
+        for expense in expense_data
+        if title.lower() in expense.title.lower()
+    ]
+
+    return {
+        "message": "Expenses retrieved successfully",
+        "data": filtered_expenses
+    }
+
 @app.get("/expense/{expense_category}")
 def get_expense(expense_category: str):
     filtered_expenses = [expense for expense in expense_data if expense.category.lower() == expense_category.lower()]
@@ -78,6 +92,10 @@ def delete_expense(expense_id: int):
         "message": "Expense not found",
         "data": None
     }
+from fastapi import Query
+
+
+
 
 
 
