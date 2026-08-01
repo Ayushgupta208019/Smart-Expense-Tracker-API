@@ -52,3 +52,16 @@ def total_expenses_by_category(expense_category: str):
         "total_expenses": total
     }
 
+@app.get("/expense/{expense_category}")
+def get_expense(expense_category: str):
+    filtered_expenses = [expense for expense in expense_data if expense.category.lower() == expense_category.lower()]
+    if not filtered_expenses:
+        return {
+            "message": f"No expenses found for category: {expense_category}",
+            "data": []
+        }
+    return {
+        "message": "Expenses retrieved successfully",
+        "data": filtered_expenses
+    }
+
