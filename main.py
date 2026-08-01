@@ -29,3 +29,18 @@ def get_expenses():
         "data": expense_data
     }
 
+@app.get("/expenses")
+def get_expenses():
+    return {
+        "message": "Expenses retrieved successfully",
+        "data": expense_data
+    }
+
+@app.get("/expense/total")
+def total_expenses():
+    total = sum(expense.amount for expense in expense_data)
+    return {
+        "message": "Total expenses calculated successfully",
+        "total_expenses": total
+    }
+
