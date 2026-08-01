@@ -21,3 +21,11 @@ def add_expense(expense: Expense):
         "message": "Expense added successfully",
         "data": expense
     }
+
+@app.get("/expenses")
+def get_expenses():
+    return {
+        "message": "Expenses retrieved successfully",
+        "data": expense_data
+    }
+
